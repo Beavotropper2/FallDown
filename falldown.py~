@@ -92,7 +92,6 @@ def main():
 
 		pygame.display.flip()
 
-	print("Player lost with score: " + str(score))
 	pygame.quit()
 		
 if __name__ == "__main__":

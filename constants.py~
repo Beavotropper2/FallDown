@@ -6,7 +6,7 @@ SCREEN_HEIGHT = 600
 GAP_LEN = 100
 
 # Length platforms shift each frame
-MAP_SHIFT = -3.5
+MAP_SHIFT = -4
 
 # Length between each platform set
 SPACE_LEN = 150

@@ -26,7 +26,6 @@ class Map():
 		# Update lists
 		self.platform_list.update()
 		self.enemy_list.update()
-		self.frames += 1
 
 		# Remove any platforms above current window
 		plat_removed = False

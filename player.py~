@@ -53,6 +53,7 @@ class Player(pygame.sprite.Sprite):
 		#print(str(self.rect.x) + "," + str(self.rect.y))
 		if self.rect.top <= 0:
 			self.alive = False
+			print("Player has lost")
 			
 	def check_x_coll(self):
 		plat_hit_list = pygame.sprite.spritecollide(self, self.game_map.platform_list, False)
