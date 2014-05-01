@@ -4,6 +4,7 @@ import pygame, random
 
 from player import Player
 from fmap import Map
+from menu import Menu
 from constants import *
 
 # Return score_text
@@ -41,42 +42,47 @@ def main():
 
 	# Create Score
 	score = 0
+	
+	# Show main menu
+	menu = Menu(screen)
+	menu.show_main()
     
 	# Loop until window closed
 	done = False
 	while not done:
-	# Process events
+		
+		# Check if player has lost
+		if not player.alive:
+			done = True
+			continue
+	
+		# Process events
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				done = True
+				continue
                      
-			if event.type == pygame.KEYUP:
-				if event.key == pygame.K_LEFT:
-					player.stop()
-				if event.key == pygame.K_RIGHT:
-					player.stop()
+			#if event.type == pygame.KEYUP:
+			#	if event.key == pygame.K_LEFT:
+			#		player.stop()
+			#	if event.key == pygame.K_RIGHT:
+			#		player.stop()
 
 			if event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_LEFT:
 					player.move_left()
 				if event.key == pygame.K_RIGHT:
 					player.move_right()
-                    
-        # Game Logic
         
-		# Update player
-		active_sprites.update()
-		#print("Player y_location: " + str(player.rect.y))
-
 		# Update map
 		game_map.update()
-
-		# Check if player has lost
-		if not player.alive:
-			done = True
+		
+		# Update player
+		active_sprites.update()
+		print("Player y_location: " + str(player.rect.y))
 
 		# Get player score
-		score = int(game_map.frames / 2)
+		score = int(game_map.frames / 8 * -(MAP_SHIFT * 2))
 		score_text = get_score(score)
 		score_pos = [(SCREEN_WIDTH - score_text.get_rect().x) / 2, 20]
 
@@ -93,6 +99,7 @@ def main():
 		pygame.display.flip()
 
 	print("Player lost with score: " + str(score))
+	pygame.time.wait(1500)
 	pygame.quit()
 		
 if __name__ == "__main__":

@@ -14,7 +14,7 @@ class Map():
 
 	def __init__(self, player):
 		self.platform_list = pygame.sprite.Group()
-		self.enemy_list = pygame.sprite.Group()
+		#self.enemy_list = pygame.sprite.Group()
 		self.player = player
 
 		self.bg_image = pygame.image.load("bg_castle.png").convert()
@@ -25,7 +25,7 @@ class Map():
 	def update(self):
 		# Update lists
 		self.platform_list.update()
-		self.enemy_list.update()
+		#self.enemy_list.update()
 		self.frames += 1
 
 		# Remove any platforms above current window
@@ -46,29 +46,35 @@ class Map():
 		
 		# Draw platforms
 		self.platform_list.draw(screen)
-		self.enemy_list.draw(screen)
+		#self.enemy_list.draw(screen)
 
 	# Shift platforms up
 	def shift_map(self, shift_y):
+		# Update map_shift variable
 		self.map_shift += shift_y
 
+		# Update all platforms locations
 		for platform in self.platform_list:
 			platform.rect.y += shift_y
 
+		# Update player location
 		self.player.rect.y += shift_y
 	
 	# Generate a platform
 	def gen_platform(self, plat):
+		# Left side of platform
 		plat_l = Platform(plat[0], plat[1])
 		plat_l.rect.x = 0
 		plat_l.rect.y = plat[2]
 		plat_l.player = self.player
 		
+		# Right side of platform
 		plat_r = Platform(SCREEN_WIDTH - plat[0] - GAP_LEN, plat[1])
 		plat_r.rect.x = plat[0] + GAP_LEN
 		plat_r.rect.y = plat[2]
 		plat_r.player = self.player
 		
+		# Add both platforms to platform_list
 		self.platform_list.add(plat_l)
 		self.platform_list.add(plat_r)
 		
